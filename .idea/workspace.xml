@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44f36c75-94be-4a54-8c87-1e66e9f1ab63" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/MachineLearning.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Linear Regression/LinearReg.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Linear Regression/pilot.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Linear Regression/z-score method.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scikit-learn/clustering.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scikit-learn/linear_regression.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scikit-learn/pca.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Linear Regression/z-score method.py" beforeDir="false" afterPath="$PROJECT_DIR$/Linear Regression/z-score method.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +43,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "settings.editor.selected.configurable": "editor.preferences.completion"
   }
 }]]></component>
