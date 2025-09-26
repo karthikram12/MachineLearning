@@ -9,10 +9,10 @@ y_arr_norm = (y_arr - y_arr.mean()) / y_arr.std()
 r_score = np.sum(x_arr_norm * y_arr_norm) / len(x_arr)
 slope = r_score * (y_arr.std() / x_arr.std())
 intercept = y_arr.mean() - (slope * x_arr.mean())
-y_pred = (slope * x_arr) + intercept
+y_prediction = (slope * x_arr) + intercept
 
 plt.scatter(x_arr, y_arr, color='red')
-plt.plot(x_arr, y_pred, color='blue')
+plt.plot(x_arr, y_prediction, color='blue')
 plt.show()
 
 
