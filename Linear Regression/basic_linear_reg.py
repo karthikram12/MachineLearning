@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.metrics import mean_squared_error, root_mean_squared_error, mean_absolute_error
+from sklearn.linear_model import Ridge, Lasso
 
 data = pd.read_csv('insurance.csv')
 data = pd.DataFrame(data)
@@ -30,6 +31,12 @@ linear = LinearRegression()
 linear.fit(X_train, y_train)
 y_pred = linear.predict(X_test)
 
+ridge_model = Ridge(alpha=1, max_iter=100, random_state=42)
+ridge_model.fit(X_train, y_train)
+
+lasso_model = Lasso(alpha=0.2, max_iter=100)
+lasso_model.fit(X_train, y_train)
+
 plt.scatter(y_test, y_pred, color='red')
 plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], color='blue')
 
@@ -38,15 +45,19 @@ mse = mean_squared_error(y_test, y_pred)
 mae = mean_absolute_error(y_test, y_pred)
 rmse = root_mean_squared_error(y_test, y_pred)
 
+r2_score_ridge = ridge_model.score(X_test, y_test)
+r2_score_lasso = lasso_model.score(X_test, y_test)
+
 print("Mean Squared Error:", mse)
 print("Mean Absolute Error:", mae)
 print("Root Mean Squared Error:", rmse)
-print("R2 score:", r2_score)
+print("R2 score for Linear Reg:", r2_score)
+print("R2 score for Ridge Reg:", r2_score_ridge)
+print("R2 score for Ridge Reg:", r2_score_lasso)
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm')
+sns.pairplot(data)
 
-#sns.heatmap(corr_matrix, annot=True, cmap='coolwarm')
-#sns.pairplot(data)
-
-plt.show()
+#plt.show()
 
 
 
