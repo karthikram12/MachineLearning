@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44f36c75-94be-4a54-8c87-1e66e9f1ab63" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Linear Regression/multiple linear reg.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Linear Regression/basic_linear_reg.py" beforeDir="false" afterPath="$PROJECT_DIR$/Linear Regression/basic_linear_reg.py" afterDir="false" />
     </list>
@@ -38,6 +39,7 @@
     "Python.basic_linear_reg.executor": "Run",
     "Python.clustering.executor": "Debug",
     "Python.linear_regression.executor": "Run",
+    "Python.multiple linear reg.executor": "Run",
     "Python.pca.executor": "Run",
     "Python.pilot.executor": "Run",
     "Python.z-score method.executor": "Run",

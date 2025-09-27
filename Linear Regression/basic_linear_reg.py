@@ -57,7 +57,7 @@ print("R2 score for Ridge Reg:", r2_score_lasso)
 sns.heatmap(corr_matrix, annot=True, cmap='coolwarm')
 sns.pairplot(data)
 
-#plt.show()
+plt.show()
 
 
 
