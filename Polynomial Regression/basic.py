@@ -21,7 +21,6 @@ data = pd.concat([data, encoded_df], axis=1)
 data_corr_matrix = data.corr()
 #sns.heatmap(data_corr_matrix, cmap='coolwarm', annot=True)
 
-
 X = data.drop(columns='Weight')
 y = data['Weight']
 
