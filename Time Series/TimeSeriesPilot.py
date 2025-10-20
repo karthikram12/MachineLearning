@@ -61,10 +61,18 @@ def model_selection(model_grid_params, X_train, y_train):
         }
     return best_models
 
-def fit_and_predict(model, X_train, y_train, X_test):
-    model.fit(X_train, y_train)
-    y_pred = model.predict(X_test)
-    return y_pred
+def fit_and_predict(model, X_train, y_train, X_test, use_poly=False, poly_degree=2):
+    if use_poly:
+        poly = PolynomialFeatures(degree=poly_degree, include_bias=False)
+        X_train_t = poly.fit_transform(X_train)
+        X_test_t = poly.transform(X_test)
+    else:
+        X_train_t = X_train
+        X_test_t = X_test
+
+    model.fit(X_train_t, y_train)
+    y_pred = model.predict(X_test_t)
+    return y_pred, model, (poly if use_poly else None)
 
 def reconstruct_abs_target(last_train_value, diffs):
     values = [last_train_value + diffs[0]]
@@ -72,11 +80,19 @@ def reconstruct_abs_target(last_train_value, diffs):
         values.append(values[-1] + diff)
     return values
 
-def calculate_scores(model,  X_train, y_train, X_test, y_test, y_pred):
-    train_score = model.score(X_train, y_train)
-    test_score = model.score(X_test, y_test)
-    r_score = r2_score(y_test, y_pred)
-    return train_score, test_score, r_score
+def calculate_scores(model,  X_train, y_train, X_test, y_test, y_pred, scaler_y, poly_used=None):
+    if poly_used is not None:
+        X_train_t = poly_used.transform(X_train)
+        X_test_t = poly_used.transform(X_test)
+    else:
+        X_train_t = X_train
+        X_test_t = X_test
+    y_test_original = scaler_y.inverse_transform(y_test.reshape(-1, 1)).ravel()
+    train_score = model.score(X_train_t, y_train)
+    test_score = model.score(X_test_t, y_test)
+    y_pred_original = scaler_y.inverse_transform(y_pred.reshape(-1, 1)).ravel()
+    r_score_test = r2_score(y_test_original, y_pred_original)
+    return train_score, test_score, r_score_test
 
 data_raw = pd.read_csv('Month_Value_1.csv', parse_dates=['Period'])
 data = data_prep_for_df(data_raw)
@@ -122,15 +138,18 @@ print(best_models)
 best_model_name = max(best_models, key=lambda x: best_models[x]['best_score'])
 best_model = best_models[best_model_name]['best_model']
 print(best_model)
-y_predictions_scaled = fit_and_predict(best_model, X_train, y_train, X_test)
+use_poly = isinstance(best_model, (LinearRegression, Ridge, Lasso))
+poly = PolynomialFeatures(degree=2, include_bias=False) if use_poly else None
+y_predictions_scaled, fitted_model, poly_used = fit_and_predict(best_model, X_train, y_train, X_test, use_poly=use_poly, poly_degree=2)
 y_predictions = scaler.inverse_transform(y_predictions_scaled.reshape(-1, 1)).flatten()
 train_index = data.index[:train_size]
 last_train_value = data_raw.set_index('Period').loc[train_index[-1], 'Revenue']
 reconstructed_y_predictions = reconstruct_abs_target(last_train_value, y_predictions)
-train_score, test_score, r_score = calculate_scores(best_model, X_train, y_train, X_test, y_test, y_predictions_scaled)
+train_score, test_score, r_score_test = calculate_scores(best_model, X_train, y_train, X_test, y_test, y_predictions_scaled,
+                                                    scaler, poly_used)
 print(train_score)
 print(test_score)
-print(r_score)
+print(r_score_test)
 test_index = data.index[train_size:]
 actual_abs_y = data_raw.set_index('Period').loc[test_index, 'Revenue']
 plt.plot(actual_abs_y.index, actual_abs_y.values, label='Test')
