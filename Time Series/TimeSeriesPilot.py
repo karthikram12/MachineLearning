@@ -5,7 +5,7 @@ from sklearn.linear_model import Ridge, Lasso, LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 import matplotlib.pyplot as plt
 from sklearn.metrics import r2_score
-from sklearn.model_selection import RandomizedSearchCV, TimeSeriesSplit, GridSearchCV
+from sklearn.model_selection import RandomizedSearchCV, TimeSeriesSplit
 from sklearn.preprocessing import PolynomialFeatures
 
 def data_prep_for_df(df):
@@ -87,9 +87,9 @@ def calculate_scores(model,  X_train, y_train, X_test, y_test, y_pred, scaler_y,
     else:
         X_train_t = X_train
         X_test_t = X_test
-    y_test_original = scaler_y.inverse_transform(y_test.reshape(-1, 1)).ravel()
     train_score = model.score(X_train_t, y_train)
     test_score = model.score(X_test_t, y_test)
+    y_test_original = scaler_y.inverse_transform(y_test.reshape(-1, 1)).ravel()
     y_pred_original = scaler_y.inverse_transform(y_pred.reshape(-1, 1)).ravel()
     r_score_test = r2_score(y_test_original, y_pred_original)
     return train_score, test_score, r_score_test
